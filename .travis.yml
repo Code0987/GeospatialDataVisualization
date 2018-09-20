@@ -1,0 +1,20 @@
+language: node_js
+sudo: required
+
+before_install:
+- openssl aes-256-cbc -K $encrypted_e0379efdf227_key -iv $encrypted_e0379efdf227_iv
+  -in gae-key.json.enc -out gae-key.json -d
+
+install:
+- npm install
+
+script:
+- npm run build
+
+deploy:
+  provider: gae
+  keyfile: gae-key.json
+  project: GeospatialDataVisualization
+  no_promote: true
+  skip_cleanup: true
+  default: true
