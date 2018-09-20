@@ -1,0 +1,37 @@
+doctype html
+html(lang='')
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title Home - Geospatial Data Visualization
+    meta(name='description', content='')
+    link(rel='icon', href='data:;base64,iVBORwOKGO=')
+    link(rel='shortcut icon', href='/images/favicon.png')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/css/main.css')
+
+  body
+    br
+    p.lead Geospatial Data Visualization
+    hr
+    .row
+      .col-sm-6
+        .jumbotron
+          h3 Weather Alerts
+          p
+            img(src='/images/weatheralerts.png', width=160)
+          p
+            a(class='btn btn-primary btn-lg', href='/weatheralerts', role='button') Explore
+      .col-sm-6
+        .jumbotron
+          h3 Earthquakes
+          p
+            img(src='/images/earthquakes.png', width=160)
+          p
+            a(class='btn btn-primary btn-lg', href='/earthquakes', role='button') Explore
+
+    script(src='https://code.jquery.com/jquery.js')
+    script(src='https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js')
+    script(async defer src='https://buttons.github.io/buttons.js')
+    script(src='/js/main.js')
