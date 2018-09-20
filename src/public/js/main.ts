@@ -112,14 +112,14 @@ function gdvForEarthquakes() {
       };
 
       let map = L.map("map", {
-        center: [20.5937, 78.9629],
-        zoom: 3,
-        layers: [baseMaps["Dark Map"], faultLines],
+        center: [8, 34],
+        zoom: 2,
+        layers: [baseMaps["Dark Map"], faultLines, earthquakesNonGreen],
         scrollWheelZoom: true
       });
 
       L.control.layers(baseMaps, overlayMaps, {
-        collapsed: true
+        collapsed: false
       }).addTo(map);
 
       let legend = L.control({ position: "bottomright" });
@@ -137,7 +137,8 @@ function gdvForEarthquakes() {
       let timelineControl = L.timelineSliderControl({
         formatOutput: function (date) {
           return new Date(date).toLocaleDateString();
-        }
+        },
+        steps: 10000
       });
       timelineControl.addTo(map);
       timelineControl.addTimelines(timelineLayer);
@@ -145,8 +146,8 @@ function gdvForEarthquakes() {
     }
 
     function createFeatures(earthquakeData, faultLineData) {
-      function getMarkerSize(mag) {
-        return mag * mag / 2;
+      function getMarkerSize(mag, f) {
+        return mag * mag / f;
       }
 
       function onEachEarthquake(feature, layer) {
@@ -157,10 +158,10 @@ function gdvForEarthquakes() {
         onEachFeature: onEachEarthquake,
         pointToLayer: function (feature, layer) {
           return new L.circleMarker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {
-            fillOpacity: 0.2,
-            color: getMarkerColor(feature.properties.mag),
+            fillOpacity: 0.3,
             fillColor: getMarkerColor(feature.properties.mag),
-            radius: getMarkerSize(feature.properties.mag)
+            radius: getMarkerSize(feature.properties.mag, 5),
+            stroke: false
           });
         }
       });
@@ -169,10 +170,10 @@ function gdvForEarthquakes() {
         onEachFeature: onEachEarthquake,
         pointToLayer: function onEachEarthquakeLayer(feature, layer) {
           return new L.circleMarker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {
-            fillOpacity: 0.4,
-            color: "orange",
+            fillOpacity: 0.3,
             fillColor: getMarkerColor(feature.properties.mag),
-            radius: getMarkerSize(feature.properties.mag)
+            radius: getMarkerSize(feature.properties.mag, 4),
+            stroke: false
           });
         },
         filter: function (feature, layer) {
@@ -203,7 +204,7 @@ function gdvForEarthquakes() {
             fillOpacity: 0.8,
             color: getMarkerColor(feature.properties.mag),
             fillColor: getMarkerColor(feature.properties.mag),
-            radius: getMarkerSize(feature.properties.mag)
+            radius: getMarkerSize(feature.properties.mag, 2.1)
           });
         }
       });
